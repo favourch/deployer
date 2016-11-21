@@ -5,7 +5,11 @@ namespace REBELinBLUE\Deployer\Traits;
 use Illuminate\Support\Str;
 use REBELinBLUE\Deployer\Exceptions\InvalidEnumException;
 
-// https://gist.github.com/jhoff/b68dc2ac0e106a68488475e8430b38dc
+/**
+ * A trait to implement enum properties on models
+ * @link https://gist.github.com/jhoff/b68dc2ac0e106a68488475e8430b38dc
+ * @author Jordan Hoff
+ */
 trait Enums
 {
     /**

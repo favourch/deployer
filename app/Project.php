@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use REBELinBLUE\Deployer\Presenters\ProjectPresenter;
 use REBELinBLUE\Deployer\Scripts\Runner as Process;
 use REBELinBLUE\Deployer\Traits\BroadcastChanges;
+use REBELinBLUE\Deployer\Traits\Enums;
 use REBELinBLUE\Deployer\Traits\ProjectRelations;
 use Robbo\Presenter\PresentableInterface;
 use UnexpectedValueException;
@@ -55,13 +56,20 @@ use Version\Compare as VersionCompare;
  */
 class Project extends Model implements PresentableInterface
 {
-    use SoftDeletes, BroadcastChanges, ProjectRelations;
+    use SoftDeletes, BroadcastChanges, ProjectRelations, Enums;
 
     const FINISHED     = 0;
     const PENDING      = 1;
     const DEPLOYING    = 2;
     const FAILED       = 3;
     const NOT_DEPLOYED = 4;
+
+    /**
+     * The possible status values.
+     *
+     * @var array
+     */
+    protected $enumStatuses = [0, 1, 2, 3, 4];
 
     /**
      * The attributes excluded from the model's JSON form.
