@@ -387,7 +387,7 @@ class Project extends Model implements PresentableInterface
     {
         $tags = $this->refs()
                      ->where('is_tag', true)
-                     ->lists('name')
+                     ->pluck('name')
                      ->toArray();
 
         $compare = new VersionCompare;
@@ -415,7 +415,7 @@ class Project extends Model implements PresentableInterface
                     ->where('is_tag', false)
                     ->where('name', '<>', $this->branch)
                     ->orderBy('name')
-                    ->lists('name');
+                    ->pluck('name');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 use REBELinBLUE\Deployer\Group;
 use REBELinBLUE\Deployer\Project;
 use REBELinBLUE\Deployer\Template;
@@ -71,8 +72,15 @@ class AddTargetableAttributes extends Migration
                 ->update(['group_id' => 2]);
 
         // Remove the left over fake templates and the containing group
-        Project::where('is_template', true)->forceDelete();
-        Group::find(1)->forceDelete();
+        foreach (Project::where('is_template', true)->withTrashed() as $template) {
+            $template->forceDelete();
+        }
+
+        $group = new Group;
+        $group->where('id', 1)
+              ->withTrashed();
+
+        $group->forceDelete();
 
         // Remove the unneeded project ID column
         foreach ($this->relations as $relation) {
