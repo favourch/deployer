@@ -72,15 +72,8 @@ class AddTargetableAttributes extends Migration
                 ->update(['group_id' => 2]);
 
         // Remove the left over fake templates and the containing group
-        foreach (Project::where('is_template', true)->withTrashed() as $template) {
-            $template->forceDelete();
-        }
-
-        $group = new Group;
-        $group->where('id', 1)
-              ->withTrashed();
-
-        $group->forceDelete();
+        Project::where('is_template', true)->withTrashed()->forceDelete();
+        Group::where('id', 1)->withTrashed()->forceDelete();
 
         // Remove the unneeded project ID column
         foreach ($this->relations as $relation) {
