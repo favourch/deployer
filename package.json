@@ -2,12 +2,17 @@
   "private": true,
   "name": "deployer",
   "dependencies": {
+    "debug": "^2.2.0",
     "dotenv": "^2.0.0",
     "ioredis": "^2.2.0",
     "jsonwebtoken": "^7.0.0",
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
+    "eslint": "^3.7.1",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-plugin-promise": "^3.0.0",
+    "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-bower": "0.0.13",
     "gulp-shell": "^0.5.2",
@@ -16,6 +21,11 @@
   },
   "scripts": {
     "start": "node socket.js",
-    "postinstall": "touch ./node_modules/.install"
+    "postinstall": "touch ./node_modules/.install",
+    "clean-build": "rm -rf public/build/",
+    "clean": "npm run clean-build; npm run clean-deps",
+    "clean-deps": "rm -rf vendor/ node_modules/",
+    "install-deps": "composer install --no-suggest; yarn install",
+    "lint": "eslint --ext .js --cache socket.js || true"
   }
 }
